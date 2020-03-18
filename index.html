@@ -1,34 +1,44 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <title>Todos</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="./index.css">
-    </head>
-    <body>
-        <header class = 'todos-header'>
-            <span class = 'logo'>Todos</span>
-            <div class = 'todos-header-list'>
-                <div class = 'todos-header-list-item'>
-                    <button class = 'btn btn-getTodos'>
-                        Get Data
-                    </button>
-                    <button class = 'btn btn-clearTodos'>
-                        Clean Data
-                    </button>
-                </div>
+
+<head>
+    <meta charset="utf-8">
+    <title>Todos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <header class='todos-header'>
+        <span class='logo'>Todos</span>
+        <div class='todos-header-list'>
+            <div class='todos-header-list-item'>
+                <button class='btn btn-getTodos'>
+                    Get Data
+                </button>
+                <button class='btn btn-clearTodos'>
+                    Clean Data
+                </button>
             </div>
-        </header>
-                <main class = 'todos-content'>
-                    <section class = 'todo-list'>
-                        <header class = 'todo-list-header'>
-                            <div class = 'todo-list-header-item'>
-                                <div class = todo-list-title>TODO</div>
-                            </div>
-                            <div class = 'todo-list-header-item'></div>
-                        </header>
-                    </section>
-                </main>
-        <script src="index.js"></script>
-    </body>
+        </div>
+    </header>
+    <main class='todos-content'>
+        <section class='todo-list'>
+            <header class='todo-list-header'>
+                <div class='todo-list-header-item'>
+                    <div class=todo-list-title>TODOS</div>
+                </div>
+                <div class='todo-list-header-item'>
+                    <form class = 'add-todo' type='submit'>
+                        <input class='input-bar' placeholder='add todo...' type='text'></input>
+                    </form>
+                </div>
+            </header>
+            <ul class="todo-list-content">
+                <li class="todo-list-content-item">Buy a book<button class='btn btn-remove'>remove</button></li>
+            </ul>
+        </section>
+    </main>
+    <script src="index.js"></script>
+</body>
+
 </html>
