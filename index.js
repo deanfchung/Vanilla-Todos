@@ -15,18 +15,35 @@ document.querySelector('.btn-getTodos').addEventListener('click', () => {
             'Content-Type': 'application/json',
         }
     })
-    .then(res => res.json())
-    .then(data => {
-        console.log('data.data', data.data);
-        renderAllTodos(data.data)
-})
+        .then(res => res.json())
+        .then(data => {
+            if (!document.querySelectorAll('li').length) {
+                renderAllTodos(data.data)
+            }
+            //else {
+            //!!fix this bug later    !!!
+
+            // console.log('data.data',data.data);
+            // const removeButtonArr = document.querySelectorAll('.btn-remove')
+            // if (data.data.length !== removeButtonArr.length) {
+            //     removeButtonArr.forEach((el) => {
+            //         for (let i = 0; i < data.data.length; i++) {
+            //             if (el.id!==data.data[i].id) {
+            //                 const text = `<li class="todo-list-content-item">${content}<button class='btn btn-remove remove-api-todo' id = ${id}>remove</button></li>`
+            //                 document.querySelector('.todo-list-content').insertAdjacentHTML('beforeend', text)
+            //             }
+            //         }
+            //     })
+            // }
+            //}
+        }).catch((err) => {
+            console.error(err)
+        }
 })
 
 document.querySelector('.btn-clearTodos').addEventListener('click', () => {
     if (document.querySelector('.todo-list-content').childNode) {
-        console.log('at least one child node exists')
         const ul = document.querySelector('.todo-list-content');
-        console.log(ul);
     }
     document.querySelector('ul').remove();
     const template = `<ul class="todo-list-content"></ul>`
@@ -42,7 +59,7 @@ const renderAllTodos = (data) => {
         <li class="todo-list-content-item">${content}<button class='btn btn-remove remove-api-todo' id = ${id}>remove</button></li>
         `;
     })
-    document.querySelector('.todo-list-content').insertAdjacentHTML('beforeend',result);
+    document.querySelector('.todo-list-content').insertAdjacentHTML('beforeend', result);
     //add event listener to remove button
     document.querySelectorAll('.btn-remove').forEach((button) => {
         button.addEventListener('click', () => {
@@ -61,7 +78,7 @@ document.querySelector('.add-todo').addEventListener('submit', (e) => {
 })
 
 const addTodo = (value) => {
-    const request = {'todo':`${value}`}
+    const request = { 'todo': `${value}` }
     fetch(url, {
         method: 'POST',
         withCredentials: true,
@@ -71,26 +88,30 @@ const addTodo = (value) => {
         },
         body: JSON.stringify(request)
     })
-    .then(res => res.json())
-    .then(data => {
-        fetch(url, {
-        method: 'GET',
-        withCredentials: true,
-        headers: {
-            'Authorization': bearer,
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        currTodo = data.data[data.data.length-1]
-        const button = document.getElementById(`${id-1}`);
-        button.setAttribute('id', currTodo.id)
-        button.addEventListener('click', () => {
-            removeTodo(button);
-        });
-    });
-    })
+        .then(res => res.json())
+        .then(data => {
+            fetch(url, {
+                method: 'GET',
+                withCredentials: true,
+                headers: {
+                    'Authorization': bearer,
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    currTodo = data.data[data.data.length - 1]
+                    const button = document.getElementById(`${id - 1}`);
+                    button.setAttribute('id', currTodo.id)
+                    button.addEventListener('click', () => {
+                        removeTodo(button);
+                    });
+                    console.log('added todo successfully')
+                });
+        }).catch((err) => {
+            console.error(err)
+        })
 
     const template = `
     <li class="todo-list-content-item">${value}<button class='btn btn-remove' id = ${id}>remove</button></li>
@@ -101,7 +122,7 @@ const addTodo = (value) => {
 
 //re-usable function for adding delete functionality to remove button listeners
 const removeTodo = (button) => {
-    const requestBody = {'todoId': button.id}
+    const requestBody = { 'todoId': button.id }
     fetch(url, {
         method: 'DELETE',
         withCredentials: true,
@@ -111,7 +132,10 @@ const removeTodo = (button) => {
         },
         body: JSON.stringify(requestBody)
     })
-    .then(res => res.json())
-    .then(data => console.log('delete route response', data));
+        .then(res => res.json())
+        .then(data => console.log(data.message))
+        .catch((err) => {
+            console.error(err);
+        })
     button.parentNode.remove();
 }
