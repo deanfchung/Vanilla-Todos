@@ -20,26 +20,9 @@ document.querySelector('.btn-getTodos').addEventListener('click', () => {
             if (!document.querySelectorAll('li').length) {
                 renderAllTodos(data.data)
             }
-            //else {
-            //!!fix this bug later    !!!
+        })
+    })
 
-            // console.log('data.data',data.data);
-            // const removeButtonArr = document.querySelectorAll('.btn-remove')
-            // if (data.data.length !== removeButtonArr.length) {
-            //     removeButtonArr.forEach((el) => {
-            //         for (let i = 0; i < data.data.length; i++) {
-            //             if (el.id!==data.data[i].id) {
-            //                 const text = `<li class="todo-list-content-item">${content}<button class='btn btn-remove remove-api-todo' id = ${id}>remove</button></li>`
-            //                 document.querySelector('.todo-list-content').insertAdjacentHTML('beforeend', text)
-            //             }
-            //         }
-            //     })
-            // }
-            //}
-        }).catch((err) => {
-            console.error(err)
-        }
-})
 
 document.querySelector('.btn-clearTodos').addEventListener('click', () => {
     if (document.querySelector('.todo-list-content').childNode) {
